@@ -13,7 +13,9 @@ spring:
     config:
       server:
         git:
-          # Git repository containing the configuration files
+          # Git repository containing the configuration files. Replace this URL with your own repository
+          # that contains the configuration files. See Spring Cloud Config Server documentation:
+          # https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#_environment_repository
           uri: https://github.com/diego97f/spring-cloud-config-repo.git
           default-label: master  # Git branch to use
           search-paths: '{application}'  # Looks for config files in application-named folders
