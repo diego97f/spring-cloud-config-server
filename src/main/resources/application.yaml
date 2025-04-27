@@ -1,7 +1,11 @@
+# Server Configuration
 server:
-  port: 8888
+  port: 8888  # Default port for Spring Cloud Config Server
+
+# Spring Configuration
 spring:
   profiles:
+    # Active profile can be overridden with SPRING_PROFILES_ACTIVE environment variable
     active: ${SPRING_PROFILES_ACTIVE:default}
   application:
     name: spring-cloud-config-server
@@ -9,26 +13,31 @@ spring:
     config:
       server:
         git:
+          # Git repository containing the configuration files
           uri: https://github.com/diego97f/spring-cloud-config-repo.git
-          default-label: master
-          search-paths: '{application}'
-          timeout: 5
-          clone-on-start: true
-          force-pull: true
+          default-label: master  # Git branch to use
+          search-paths: '{application}'  # Looks for config files in application-named folders
+          timeout: 5  # Git operation timeout in seconds
+          clone-on-start: true  # Initialize repository on startup
+          force-pull: true  # Always force pull from remote
         health:
           repositories:
             check:
-              name: health-check
+              name: health-check  # Repository to check for health status
               label: master
   security:
     user:
+      # Basic authentication credentials (should be overridden in production)
       name: ${CONFIG_SERVER_USERNAME:configadmin}
       password: ${CONFIG_SERVER_PASSWORD:secretpassword}
+
+# Actuator Configuration
 management:
   endpoints:
     web:
       exposure:
+        # Exposed actuator endpoints for monitoring
         include: health,info,env,metrics
   endpoint:
     health:
-      show-details: always
+      show-details: always  # Show detailed health information
